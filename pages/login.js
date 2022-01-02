@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
 import LoginForm from '../components/LoginForm'
+import Auth from '../components/Auth'
 const login = ({isLog,setLog,isGame,setGame}) => {
     return (
         <>
@@ -13,10 +14,11 @@ const login = ({isLog,setLog,isGame,setGame}) => {
                 <li><Link href="/login">login</Link></li>
             </ul>
         </div>
+
         <div className={[styles.wrapper,styles.row3].join(" ")}>
             <div className={[styles.hoc,styles.container,styles.clear].join(" ")}>
                 <div className={[styles.content,styles.loginh].join(" ")}>
-                    <LoginForm isLog={isLog} setLog={setLog}></LoginForm>   
+                    <Auth></Auth>   
                 </div> 
             </div>
         </div>
@@ -27,3 +29,10 @@ const login = ({isLog,setLog,isGame,setGame}) => {
 
 export default login
 
+/*<div className={[styles.wrapper,styles.row3].join(" ")}>
+            <div className={[styles.hoc,styles.container,styles.clear].join(" ")}>
+                <div className={[styles.content,styles.loginh].join(" ")}>
+                    <LoginForm isLog={isLog} setLog={setLog}></LoginForm>   
+                </div> 
+            </div>
+        </div>*/
