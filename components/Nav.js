@@ -11,9 +11,9 @@ const Nav = ({isLog,setLog,isGame,setGame}) => {
             <nav id={styles.mainav}>
             <ul className={styles.clear}>
                 <li className={styles.active}><Link href="/">home</Link></li>
-                <li><Link href="/game">Game</Link></li>
-                <li><Link href="/shop/1">Shop</Link></li>
-                <li><a className={styles.drop} href="#">About</a>
+                    <li><Link href="/game">Gme</Link></li>
+                    <li><Link href="/shop/1">Shop</Link></li>
+                    <li><a className={styles.drop} href="#">About</a>
                     <ul>
                         <li><Link href="/about/AboutTema">About Тема</Link></li>
                         <li><Link href="/about/AboutUs">About Us</Link></li>
@@ -31,8 +31,8 @@ const Nav = ({isLog,setLog,isGame,setGame}) => {
         <nav id={styles.mainav}>
             <ul className={styles.clear}>
                 <li className={styles.active}><Link href="/">home</Link></li>
-                <li><Link href="/login">Game</Link></li>
-                <li><Link href="/login">Shop</Link></li>
+                <li><Link href="/game">Game</Link></li>
+                <li><Link href="/shop/1">Shop</Link></li>
                 <li><a className={styles.drop} href="#">About</a>
                     <ul>
                         <li><Link href="/about/AboutTema">About Тема</Link></li>

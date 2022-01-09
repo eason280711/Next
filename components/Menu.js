@@ -1,12 +1,13 @@
 import Merchandise from './Merchandise'
 import NextPageBar from './NextPageBar'
 import Submitbtn from './Submitbtn'
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link'
 import styles from '../styles/layout.module.css'
-import { useState } from 'react'
 import { useRouter } from 'next/router'
 import AddForm from './AddForm'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/storage'
 function randID(){
     const table = ['1','2','3','4','5','6','7','8','9','0','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
     let s = '';
@@ -17,59 +18,43 @@ function randID(){
     }
     return s;
 }
-const Menu = () => {
+const Menu = ({isLog}) => {
     const router = useRouter();
     const {id} = router.query;
     const a = (id-1)*8;
     const [show,setShow] = useState(false);
-    const [merch, setMer] = useState([
-        {
-            id:1,
-            Name:'短劍',
-            Seed:'50MQDI0短劍',
-        },
-        {
-            id:2,
-            Name:'耒云',
-            Seed:'63JI3OR耒云',
-        },
-        {
-            id:3,
-            Name:'法仗',
-            Seed:'DAHDH95法仗',
-        },
-        {
-            id:4,
-            Name:'掉在地上的頭髮',
-            Seed:'M4P8OF9掉在地上的頭髮',
-        },
-        {
-            id:5,
-            Name:'飛機杯',
-            Seed:'PS1YSKN飛機杯',
-        },
-        {
-            id:6,
-            Name:'俄羅斯',
-            Seed:'X2S1FJD俄羅斯',
-        },
-        {
-            id:7,
-            Name:'掉在地上的頭髮',
-            Seed:'M4d8OF9掉在地上的頭髮',
-        },
-        {
-            id:8,
-            Name:'飛機',
-            Seed:'PSySKN飛機',
-        },
-    ])
+    const [merch, setMer] = useState([])
     const addMer = (Mer) => {
         const Seed = randID() + Mer.Name;
         Mer = {...Mer,Seed};
         setMer([...merch,Mer]);
         console.log(merch);
     }
+    function updateMenu() {
+        var storageRef = firebase.storage().ref()
+        var listRef = storageRef.child('');
+        listRef.listAll()
+        .then((res) => {
+            res.prefixes.forEach((folderRef) => {
+                var id = Math.floor(Math.random()*48763);
+                var Name = folderRef.name;
+                let t = 0;
+                for(let i = 0; i < merch.length; i++) {
+                    if(merch[i].Name == Name) {
+                        t++;
+                    }
+                }
+                if(t == 0){
+                    addMer({id,Name});
+                }
+            });
+        }).catch((error) => {
+            alert(error)
+        });
+    }
+    useEffect(() => {
+        updateMenu()
+    }, [merch]); 
     return (
         <>
         <div id={styles.breadcrumb} className={[styles.hoc,styles.clear].join(" ")}> 
@@ -82,8 +67,9 @@ const Menu = () => {
         </div>
         <div className={[styles.wrapper,styles.row3].join(" ")}>
             <div className={[styles.hoc,styles.padt].join(" ")}>
-                <Submitbtn ck={setShow} show={show}></Submitbtn>
+            {isLog && <Submitbtn ck={setShow} show={show}></Submitbtn>}
             </div>
+            
             {show && <AddForm array={merch} onAdd={addMer} ck={setShow} show={show}></AddForm>}
             <main id={styles.header} className={[styles.outframe_2,styles.hoc,styles.container,styles.clear].join(" ")}> 
                 <div className={styles.content}> 

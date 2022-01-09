@@ -18,7 +18,7 @@ const login = ({isLog,setLog,isGame,setGame}) => {
         <div className={[styles.wrapper,styles.row3].join(" ")}>
             <div className={[styles.hoc,styles.container,styles.clear].join(" ")}>
                 <div className={[styles.content,styles.loginh].join(" ")}>
-                    <Auth></Auth>   
+                    <Auth setLog={setLog}></Auth>   
                 </div> 
             </div>
         </div>

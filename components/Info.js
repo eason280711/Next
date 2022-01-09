@@ -29,8 +29,11 @@ const Info = () => {
             </nav>
         </div>
             <section className={[styles.hoc,styles.container,styles.clear].join(" ")}> 
-                <div>
+                <div className={[styles.one_third,styles.first].join(" ")}>
                     <Image src="/01.png" alt="" height={400} width={400}/>
+                </div>
+                <div className={[styles.two_third,styles.center].join(" ")}>
+                    <h3 className={styles.heading}>{merch}</h3>
                 </div>
             </section>
         </div>  
